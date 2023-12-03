@@ -40,7 +40,7 @@ public class AdventOfCode {
         BufferedReader reader;
         List<String> fileLines = new ArrayList<>();
 
-        String baseDir = "C:\\Projects\\AdventOfCode\\AdventOfCode2023\\";
+        String baseDir = "resources\\";
         try {
             reader = new BufferedReader(new FileReader(baseDir + fileName));
             String line = reader.readLine();
