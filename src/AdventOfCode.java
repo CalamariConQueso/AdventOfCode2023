@@ -1,5 +1,6 @@
 import day1.CalibrationParser;
 import day2.CubeGame;
+import day3.PartNumberScanner;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,8 +11,9 @@ import java.util.List;
 
 public class AdventOfCode {
     public static void main(String[] args) {
-//        day1();
-        day2();
+        // day1();
+        // day2();
+        day3();
     }
 
     private static void day1() {
@@ -28,15 +30,15 @@ public class AdventOfCode {
         cubeGame.parse(gameRecords);
     }
 
+    private static void day3() {
+        List<String> schematicLines = getFileLines("day3.txt");
 
-
-    public static String toHex(byte[] bytes) {
-        BigInteger bi = new BigInteger(1, bytes);
-        return String.format("%0" + (bytes.length << 1) + "X", bi);
+        PartNumberScanner scanner = new PartNumberScanner();
+        scanner.parse(schematicLines);
     }
 
 
-    public static List<String> getFileLines(String fileName) {
+    private static List<String> getFileLines(String fileName) {
         BufferedReader reader;
         List<String> fileLines = new ArrayList<>();
 
