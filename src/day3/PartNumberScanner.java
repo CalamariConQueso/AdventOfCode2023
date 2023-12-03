@@ -41,18 +41,13 @@ public class PartNumberScanner {
                 }
 
                 // get part numbers
-                switch (s) {
-                    case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" -> {
-                        // System.out.println("Found Digit: " + s);
-                        partialPartNumber = partialPartNumber.concat(s);
-                    }
-                    default -> {
-                        if (!partialPartNumber.equals("")) {
-                            // System.out.println("End of PartNo: " + partialPartNumber);
-                            addPartNumber(partialPartNumber, new Point(x, y - (partialPartNumber.length())));
-                            partialPartNumber = "";
-                        }
-                    }
+                if (digits.contains(s)) {
+                    // System.out.println("Found Digit: " + s);
+                    partialPartNumber = partialPartNumber.concat(s);
+                } else if (!partialPartNumber.equals("")) {
+                    // System.out.println("End of PartNo: " + partialPartNumber);
+                    addPartNumber(partialPartNumber, new Point(x, y - (partialPartNumber.length())));
+                    partialPartNumber = "";
                 }
 
                 // if we're at the end of the line, and there's a value in partialPartNumber
