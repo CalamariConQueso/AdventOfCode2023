@@ -1,6 +1,7 @@
 import day1.CalibrationParser;
 import day2.CubeGame;
 import day3.PartNumberScanner;
+import day4.ScratchCardParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,14 +13,22 @@ public class AdventOfCode {
     public static void main(String[] args) {
         // day1();
         // day2();
-        day3();
+        // day3();
+        day4();
     }
 
-    private static void day1() {
-        List<String> calibrationLines = getFileLines("day1.txt");
+    private static void day4() {
+        List<String> scratchCards = getFileLines("day4.txt");
 
-        CalibrationParser parser = new CalibrationParser();
-        parser.parse(calibrationLines);
+        ScratchCardParser lottoMachine = new ScratchCardParser();
+        lottoMachine.parse(scratchCards);
+    }
+
+    private static void day3() {
+        List<String> schematicLines = getFileLines("day3.txt");
+
+        PartNumberScanner scanner = new PartNumberScanner();
+        scanner.parse(schematicLines);
     }
 
     private static void day2() {
@@ -29,11 +38,11 @@ public class AdventOfCode {
         cubeGame.parse(gameRecords);
     }
 
-    private static void day3() {
-        List<String> schematicLines = getFileLines("day3.txt");
+    private static void day1() {
+        List<String> calibrationLines = getFileLines("day1.txt");
 
-        PartNumberScanner scanner = new PartNumberScanner();
-        scanner.parse(schematicLines);
+        CalibrationParser parser = new CalibrationParser();
+        parser.parse(calibrationLines);
     }
 
 
