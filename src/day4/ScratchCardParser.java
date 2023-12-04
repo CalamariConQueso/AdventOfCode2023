@@ -20,9 +20,9 @@ public class ScratchCardParser {
         // part 2
         Integer totalCards = 0;
         for (ScratchCard card : cards) {
-            System.out.println("Recursively processing Card " + card.getCardNo());
+            // System.out.println("Recursively processing Card " + card.getCardNo());
             totalCards += totalWinningCards(card) + 1;
-            System.out.println("Current Total: " + totalCards);
+            // System.out.println("Current Total: " + totalCards);
         }
         System.out.println("Total Cards: " + totalCards);
     }
@@ -52,25 +52,20 @@ public class ScratchCardParser {
         private Integer totalWinningNumbers;
 
         public ScratchCard(Integer cardNo, String input) {
-            if (cardNo == 2) {
-                System.out.println(input);
-            }
             this.cardNo = cardNo;
             String[] numbers = input.split("\\|");
+
             winningNumbers = parseNumbers(numbers[0]);
-            if (cardNo == 2) {
-                System.out.println(winningNumbers.toString());
-            }
             playedNumbers = parseNumbers(numbers[1]);
 
             // part 2
-            int winningCards = 0;
+            int matchingNumbers = 0;
             for (Integer number : playedNumbers) {
                 if (winningNumbers.contains(number)) {
-                    winningCards++;
+                    matchingNumbers++;
                 }
             }
-            totalWinningNumbers = winningCards;
+            totalWinningNumbers = matchingNumbers;
         }
 
         public Integer getPointsPartOne() {
