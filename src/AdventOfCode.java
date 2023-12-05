@@ -16,7 +16,12 @@ public class AdventOfCode {
         // day2();
         // day3();
         // day4();
-        day5();
+        // day5();
+        day6();
+    }
+
+    private static void day6() {
+        System.out.println("Nothing to see here!");
     }
 
     private static void day5() {
