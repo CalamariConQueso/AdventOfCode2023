@@ -2,6 +2,7 @@ import day1.CalibrationParser;
 import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
+import day5.Gardener;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +15,15 @@ public class AdventOfCode {
         // day1();
         // day2();
         // day3();
-        day4();
+        // day4();
+        day5();
+    }
+
+    private static void day5() {
+        List<String> instructions = getFileLines("day5.txt");
+
+        Gardener gardener = new Gardener();
+        gardener.parse(instructions);
     }
 
     private static void day4() {
