@@ -3,6 +3,7 @@ import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
 import day5.Gardener;
+import day6.BoatRace;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,7 +22,10 @@ public class AdventOfCode {
     }
 
     private static void day6() {
-        System.out.println("Nothing to see here!");
+        List<String> raceStatistics = getFileLines("day6.txt");
+
+        BoatRace boatRace = new BoatRace();
+        boatRace.parse(raceStatistics);
     }
 
     private static void day5() {
