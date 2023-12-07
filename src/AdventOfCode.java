@@ -4,6 +4,7 @@ import day3.PartNumberScanner;
 import day4.ScratchCardParser;
 import day5.Gardener;
 import day6.BoatRace;
+import day7.CamelCards;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,11 +20,14 @@ public class AdventOfCode {
         // day4();
         // day5();
         // day6();
-        // day7();
+        day7();
     }
 
     private static void day7() {
-        
+        List<String> cardGames = getFileLines("day7.txt");
+
+        CamelCards camelCards = new CamelCards();
+        camelCards.play(cardGames);
     }
 
     private static void day6() {
