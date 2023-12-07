@@ -18,7 +18,12 @@ public class AdventOfCode {
         // day3();
         // day4();
         // day5();
-        day6();
+        // day6();
+        // day7();
+    }
+
+    private static void day7() {
+        
     }
 
     private static void day6() {
