@@ -17,20 +17,32 @@ public class CamelCards {
             this.hands.add(new Hand(parts[0], Integer.parseInt(parts[1])));
         }
 
+        // Part 1
         Collections.sort(hands);
-
         int rank = 1;
         Long winnings = 0L;
         for(Hand hand : hands) {
-            System.out.println(hand.cards + " " + hand.bet);
+            System.out.println(rank + " " + hand.cards + " " + hand.handType.name());
             winnings += (hand.bet * rank);
             rank++;
         }
-        System.out.println("Winnings: " + winnings);
+        System.out.println("Winnings Part 1: " + winnings);
+
+
+        // Part 2
+        for(Hand hand : hands) {
+            hand.processPart2();
+        }
+        Collections.sort(hands);
+        rank = 1;
+        winnings = 0L;
+        for(Hand hand : hands) {
+            System.out.println(rank + " " + hand.cards + " " + hand.handType.name());
+            winnings += (hand.bet * rank);
+            rank++;
+        }
+        System.out.println("Winnings Part 2: " + winnings);
     }
-
-
-
 
     class Hand implements Comparable<Hand> {
 
@@ -52,7 +64,109 @@ public class CamelCards {
                     default -> cards.add(Character.getNumericValue(c));
                 }
             }
-            handType = getHandType();
+            handType = getHandType(true, true);
+        }
+
+        public void processPart2() {
+            // Updater Jack's value from 11 to 1 in the cards list
+            for(int i = 0; i < 5; i++) {
+                if (cards.get(i) == 11) {
+                    cards.set(i, 1);
+                }
+            }
+            // Get the jacks from the card map
+            Integer numJacks = cardMap.get(11);
+            // remove jacks from the card map
+            cardMap.remove(11);
+
+            if (numJacks != null) {
+                if (numJacks == 5) {
+                    // Convert JJJJJ to AAAAA
+                    cardMap.put(14, 5);
+                } else if (numJacks == 4) {
+                    // Convert to 5 of a kind of the non-jack card
+                    for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                        if (card.getValue() > 0) {
+                            cardMap.put(card.getKey(), 5);
+                        }
+                    }
+                } else if (numJacks == 3) {
+                    // Convert HIGH_CARD to 4 of a kind
+                    // Convert ONE_PAIR to 5 of a kind
+                    for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                        if (card.getValue() == 2) {
+                            // this was a pair, so convert to 5 of a kind
+                            cardMap.put(card.getKey(), 5);
+                        } else {
+                            cardMap.put(card.getKey(), 4);
+                            // break out of for loop, so we don't set the second single card to a 4 of a kind
+                            break;
+                        }
+                    }
+                } else if (numJacks == 2) {
+                    // Convert 3 of a kind to 5 of a kind
+                    // Convert one pair to 4 of a kind
+                    // Convert high card to 3 of a kind
+                    if (cardMap.containsValue(3)) {
+                        // contains a 3 of a kind
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            // 3 of a kind + 2 jacks = 5 of a kind
+                            cardMap.put(card.getKey(), 5);
+                        }
+                    } else if (cardMap.containsValue(2)) {
+                        // contains a pair
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            // pair + 2 jacks = 4 of a kind
+                            if (card.getValue() == 2) {
+                                cardMap.put(card.getKey(), 4);
+                            }
+                        }
+                    } else if (cardMap.containsValue(1)) {
+                        // Convert high card to 3 of a kind
+                        Integer keyWithHighestValue = null;
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            if (keyWithHighestValue == null) {
+                                keyWithHighestValue = card.getKey();
+                            } else {
+                                keyWithHighestValue = card.getKey() > keyWithHighestValue ? card.getKey() : keyWithHighestValue;
+                            }
+                        }
+                        cardMap.put(keyWithHighestValue, 3);
+                    }
+                } else if (numJacks == 1) {
+                    // Convert 4 of a kind to 5 of a kind
+                    // Convert 3 of a kind to 4 of a kind
+                    // Convert 2 pair to Full House
+                    // Convert pair to 3 of a kind
+                    // Convert High Card to Pair
+                    if (cardMap.containsValue(4)) {
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            cardMap.put(card.getKey(), 5);
+                        }
+                    } else if (cardMap.containsValue(3)) {
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            if (card.getValue() == 3) {
+                                cardMap.put(card.getKey(), 4);
+                            }
+                        }
+                    } else if (cardMap.containsValue(2)) {
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            if (card.getValue() == 2) {
+                                cardMap.put(card.getKey(), 3);
+                                break;
+                            }
+                        }
+                    } else if (cardMap.containsValue(1)) {
+                        for (Map.Entry<Integer, Integer> card : cardMap.entrySet()) {
+                            if (card.getValue() == 1) {
+                                cardMap.put(card.getKey(), 2);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            getHandType(true, false);
         }
 
         @Override
@@ -72,14 +186,19 @@ public class CamelCards {
         }
 
 
-        private HandType getHandType() {
+        private HandType getHandType(boolean force, boolean buildCardMap) {
+            if (force) {
+                handType = null;
+            }
             if (handType == null) {
-                for (Integer card : cards) {
-                    Integer count = cardMap.get(card);
-                    if (count != null) {
-                        cardMap.put(card, ++count);
-                    } else {
-                        cardMap.put(card, 1);
+                if (buildCardMap) {
+                    for (Integer card : cards) {
+                        Integer count = cardMap.get(card);
+                        if (count != null) {
+                            cardMap.put(card, ++count);
+                        } else {
+                            cardMap.put(card, 1);
+                        }
                     }
                 }
 
