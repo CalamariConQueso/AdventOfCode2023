@@ -5,6 +5,7 @@ import day4.ScratchCardParser;
 import day5.Gardener;
 import day6.BoatRace;
 import day7.CamelCards;
+import day8.DesertMap;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,7 +21,15 @@ public class AdventOfCode {
         // day4();
         // day5();
         // day6();
-        day7();
+        // day7();
+        day8();
+    }
+
+    public static void day8() {
+        List<String> directions = getFileLines("day8.txt");
+
+        DesertMap map = new DesertMap();
+        map.parse(directions);
     }
 
     private static void day7() {
