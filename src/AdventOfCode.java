@@ -6,6 +6,7 @@ import day5.Gardener;
 import day6.BoatRace;
 import day7.CamelCards;
 import day8.DesertMap;
+import day9.OasisParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,7 +23,15 @@ public class AdventOfCode {
         // day5();
         // day6();
         // day7();
-        day8();
+        // day8();
+        day9();
+    }
+
+    public static void day9() {
+        List<String> readings = getFileLines("day9.txt");
+
+        OasisParser parser = new OasisParser();
+        parser.parse(readings);
     }
 
     public static void day8() {
