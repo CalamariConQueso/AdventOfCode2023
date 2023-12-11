@@ -1,4 +1,5 @@
 import day1.CalibrationParser;
+import day10.PipeLoop;
 import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
@@ -24,7 +25,15 @@ public class AdventOfCode {
         // day6();
         // day7();
         // day8();
-        day9();
+        // day9();
+        day10();
+    }
+
+    public static void day10() {
+        List<String> pipeList = getFileLines("day10.txt");
+
+        PipeLoop pipeLoop = new PipeLoop();
+        pipeLoop.parse(pipeList);
     }
 
     public static void day9() {
