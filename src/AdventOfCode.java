@@ -1,5 +1,6 @@
 import day1.CalibrationParser;
 import day10.PipeLoop;
+import day11.GalaxyMap;
 import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
@@ -26,7 +27,17 @@ public class AdventOfCode {
         // day7();
         // day8();
         // day9();
-        day10();
+        // todo: finish day10 part 2
+        // day10();
+        day11();
+    }
+
+    public static void day11() {
+        List<String> inputList = getFileLines("day11.txt");
+
+        GalaxyMap map = new GalaxyMap();
+        map.parse(inputList);
+
     }
 
     public static void day10() {
