@@ -5,38 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RollingRocks {
-    // list of columns
-//    List<List<Character>> columns = new ArrayList<>();
     List<String> columnStrings = new ArrayList<>();
-//    List<String> tiltedColumns = new ArrayList<>();
     List<String> rowStrings = new ArrayList<>();
-//    List<String> tiltedRows = new ArrayList<>();
     public void parse(List<String> inputList) {
         for (int y = 0; y < inputList.size(); y++) {
             char[] row = inputList.get(y).toCharArray();
             for (int x = 0; x < row.length; x++) {
                 if (y == 0) {
-//                    columns.add(new ArrayList<>());
                     columnStrings.add("");
                 }
-//                columns.get(x).add(row[x]);
                 String c = columnStrings.get(x);
                 columnStrings.remove(x);
                 columnStrings.add(x, c + Character.toString(row[x]));
             }
         }
 
-
-
         rowStrings = convertColumnsToRows(columnStrings);
 
         long start = Instant.now().toEpochMilli();
 
+        // initialize
         for (int i = 0; i < 500; i++) {
             cycle();
         }
         List<String> savedCycleState = new ArrayList<String>(rowStrings);
-        long l = 0;
+        int l = 0;
         for (l = 0; l < 999999500; l++) {
             cycle();
             if (rowStringsMatch(savedCycleState)) {
@@ -45,19 +38,15 @@ public class RollingRocks {
             }
         }
 
-        int r = 999999499 % 21;
+        int r = 999999499 % l;
         System.out.println("remaining: " + r);
         for (int i = 0; i < r; i++) {
             cycle();
         }
 
-        // number of cycles = (500 + l+1)
-
-
         for (String row : rowStrings) {
             System.out.println(row);
         }
-
 
         int load = 0;
         for (String column : columnStrings) {
