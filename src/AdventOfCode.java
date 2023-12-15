@@ -1,6 +1,8 @@
 import day1.CalibrationParser;
 import day10.PipeLoop;
 import day11.GalaxyMap;
+import day12.SpringRecord;
+import day14.RollingRocks;
 import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
@@ -29,7 +31,28 @@ public class AdventOfCode {
         // day9();
         // todo: finish day10 part 2
         // day10();
-        day11();
+        // day11(); // todo: do this
+        // day12(); // todo: do this
+        // day13(); // todo: do this
+        day14();
+
+    }
+    public static void day14() {
+        List<String> inputList = getFileLines("day14.txt");
+
+        RollingRocks rollingRocks = new RollingRocks();
+        rollingRocks.parse(inputList);
+    }
+
+    public static void day13() {
+
+    }
+
+    public static void day12() {
+        List<String> inputList = getFileLines("day12.txt");
+
+        SpringRecord record = new SpringRecord();
+        record.parse(inputList);
     }
 
     public static void day11() {
