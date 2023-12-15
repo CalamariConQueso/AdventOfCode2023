@@ -162,18 +162,4 @@ public class RollingRocks {
         }
         return columns;
     }
-
-//    private void printGrid() {
-//        // print the current grid
-//        int rows = columns.get(0).size();
-//        System.out.println("Number of Rows: " + rows);
-//
-//        for (int y = 0; y < rows; y++) {
-//            String rowString = "";
-//            for (List<Character> column : columns) {
-//                rowString += Character.toString(column.get(y));
-//            }
-//            System.out.println(rowString);
-//        }
-//    }
 }
