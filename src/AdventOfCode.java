@@ -3,6 +3,7 @@ import day10.PipeLoop;
 import day11.GalaxyMap;
 import day12.SpringRecord;
 import day14.RollingRocks;
+import day16.LightGrid;
 import day2.CubeGame;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
@@ -34,9 +35,23 @@ public class AdventOfCode {
         // day11(); // todo: do this
         // day12(); // todo: do this
         // day13(); // todo: do this
-        day14();
+        // day14();
+        day15(); // todo: yeah..
+        day16();
 
     }
+
+    public static void day16() {
+        List<String> inputList = getFileLines("day16.txt");
+
+        LightGrid grid = new LightGrid();
+        grid.parse(inputList);
+    }
+
+    public static void day15() {
+
+    }
+
     public static void day14() {
         List<String> inputList = getFileLines("day14.txt");
 
