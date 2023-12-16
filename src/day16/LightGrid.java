@@ -70,8 +70,6 @@ public class LightGrid {
         }
 
         System.out.println("(p2) Max Energized cells: " + max);
-
-
     }
     private void resetTiles() {
         for (int y = 0; y < grid.sizeY(); y++) {
@@ -93,10 +91,10 @@ public class LightGrid {
 //            System.out.println("Energized Size: " + energized.size());
         }
         LightGridTile tile = grid.get(p);
-        if (tile.reflectedFromList.contains(source)) {
-            return;
-        }
         if (tile != null) {
+            if (tile.reflectedFromList.contains(source)) {
+                return;
+            }
             Direction reflect = tile.reflectLight(source);
             switch (reflect) {
                 case RIGHT -> {
@@ -136,7 +134,6 @@ public class LightGrid {
 
         public void reset() {
             energized = false;
-            energizedCount = 0;
             reflectedFromList.clear();
         }
 
@@ -155,7 +152,6 @@ public class LightGrid {
 
         public Direction reflectLight(Direction source) {
             energized = true;
-            energizedCount++;
             if (!reflectedFromList.contains(source)) {
                 reflectedFromList.add(source);
             }
