@@ -5,6 +5,7 @@ import day12.SpringRecord;
 import day14.RollingRocks;
 import day16.LightGrid;
 import day2.CubeGame;
+import day23.HikingMap;
 import day3.PartNumberScanner;
 import day4.ScratchCardParser;
 import day5.Gardener;
@@ -37,8 +38,16 @@ public class AdventOfCode {
         // day13(); // todo: do this
         // day14();
         day15(); // todo: yeah..
-        day16();
+        // day16();
+        day23();
 
+    }
+
+    public static void day23() {
+        List<String> inputList = getFileLines("day23.txt");
+
+        HikingMap trails = new HikingMap();
+        trails.parse(inputList);
     }
 
     public static void day16() {
