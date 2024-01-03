@@ -4,6 +4,7 @@ import util.AoCGrid;
 import util.Location;
 import util.Point;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class HikingMap {
     private Long nextPathId = 0L;
 
     private Long longestRoute = 0L;
+
+    Runtime rt = Runtime.getRuntime();
 
     public void parse(List<String> inputList) {
         int y = 0;
@@ -40,18 +43,23 @@ public class HikingMap {
         nextPathId = 0L;
         pathId = getNextPathId();
 
+        Long start = Instant.now().getEpochSecond();
+
         walkPath(pathId, pathPointList, findStartingTrailNode(), 0L, destination, 2);
 
         System.out.println("Longest Route part 2: " + longestRoute);
 
+        System.out.println("Completed in " + (Instant.now().getEpochSecond() - start) + " seconds.");
 
     }
 
     private void walkPath(Long pathId, List<Point> pathPointList, TrailNode node, Long steps, TrailNode destination, int part) {
         
         if (node.getLocation().equals(destination.getLocation())) {
-            // System.out.println("Arrived at destination.  PathId: " + pathId + " Steps: " + steps);
+            System.out.println("Arrived at destination.  PathId: " + pathId + " Steps: " + steps);
             longestRoute = steps > longestRoute ? steps : longestRoute;
+            System.out.println("Current longest route: " + longestRoute);
+            printMemoryUsage();
             return;
         }
         if (pathPointList.contains(node.getLocation())) {
@@ -75,10 +83,10 @@ public class HikingMap {
 
             TrailNode nextNode = null;
             switch (d) {
-                case Direction.NORTH -> { nextNode = hikingTrails.get(node.getLocation().getX(), node.getLocation().getY() - 1); }
-                case Direction.SOUTH -> { nextNode = hikingTrails.get(node.getLocation().getX(), node.getLocation().getY() + 1 ); }
-                case Direction.EAST -> { nextNode = hikingTrails.get(node.getLocation().getX() + 1, node.getLocation().getY()); }
-                case Direction.WEST -> { nextNode = hikingTrails.get(node.getLocation().getX() - 1, node.getLocation().getY()); }
+                case NORTH -> { nextNode = hikingTrails.get(node.getLocation().getX(), node.getLocation().getY() - 1); }
+                case SOUTH -> { nextNode = hikingTrails.get(node.getLocation().getX(), node.getLocation().getY() + 1 ); }
+                case EAST -> { nextNode = hikingTrails.get(node.getLocation().getX() + 1, node.getLocation().getY()); }
+                case WEST -> { nextNode = hikingTrails.get(node.getLocation().getX() - 1, node.getLocation().getY()); }
             }
             if (nextNode != null) {
                 Long newStepCount = steps + 1;
@@ -100,6 +108,16 @@ public class HikingMap {
             createNewPathId = true;
         }
 
+    }
+
+    private void printMemoryUsage() {
+        long total = rt.totalMemory();
+        long free = rt.freeMemory();
+            System.out.println(
+                    String.format("Total: %s, Free: %s, Used: %s",
+                            total,
+                            free,
+                            total - free));
     }
 
     private Long getNextPathId() {
