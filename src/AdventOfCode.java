@@ -1,3 +1,4 @@
+import aoc2024.day1.ListCalculator;
 import day1.CalibrationParser;
 import day10.PipeLoop;
 import day11.GalaxyMap;
@@ -37,10 +38,16 @@ public class AdventOfCode {
         // day12(); // todo: do this
         // day13(); // todo: do this
         // day14();
-        day15(); // todo: yeah..
+//        day15(); // todo: yeah..
         // day16();
-        day23();
+//        day23();
+        day1_2024();
+    }
 
+    public static void day1_2024() {
+        List<String> inputList = getFileLines("2024\\day1.txt");
+
+        ListCalculator calc = new ListCalculator(inputList);
     }
 
     public static void day23() {
